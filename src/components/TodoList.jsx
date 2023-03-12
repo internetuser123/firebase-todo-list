@@ -1,6 +1,7 @@
 import Todo from './Todo'
 import React, {useState, useEffect} from "react"
 import { addTodosDB, fetchFromDB, updateTodosDB, deleteTodoDB } from "../db/operation"
+import styles from "./TodoList.module.css"
 
 const TodoList = () => {
 
@@ -68,7 +69,7 @@ const TodoList = () => {
             <input type="text" onChange={handleChange} value={input} />
             <button type="submit">Add todo</button>
             </form>
-            <ul>
+            <ul className={styles.list}>
                 {todos.map(item => {
                     return <Todo
                     key={item.id}

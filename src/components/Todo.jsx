@@ -1,4 +1,5 @@
 import React, {useState}  from "react"
+import styles from "./Todo.module.css"
 
 const Todo = (props) => {
 
@@ -15,6 +16,7 @@ const Todo = (props) => {
         event.preventDefault()
         editTodo(id, input)
         setInput("")
+        setIsEditing(false)
     }
 
     const handleChange = (event) => {
@@ -22,7 +24,7 @@ const Todo = (props) => {
     }
 
     const defaultTemplate = (
-        <div>
+        <div className={styles.container}>
                 <input 
                 type="checkbox"
                 id={id}
@@ -30,25 +32,27 @@ const Todo = (props) => {
                 value={input} />
                 {desc}
                 <div>
-                    <button type="button" onClick={() => setIsEditing(true)}>Edit</button>
-                    <button type="button" onClick={() => deleteTodo(id)}>Delete</button>
+                    <button className={styles.buttons} type="button" onClick={() => setIsEditing(true)}>Edit</button>
+                    <button className={styles.buttons} type="button" onClick={() => deleteTodo(id)}>Delete</button>
                 </div>
             </div>
     )
 
     const editTemplate = (
-        <form onSubmit={handleSubmit}>
-                <input 
-                type="text"
-                id={id}
-                onChange={handleChange}
-                value={input} />
-                {desc}
-                <div>
-                    <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-                    <button type="submit">Save</button>
-                </div>
-            </form>
+        <div className={styles.container}>
+            <form onSubmit={handleSubmit}>
+                    <input 
+                    type="text"
+                    id={id}
+                    onChange={handleChange}
+                    value={input} />
+                    {desc}
+                    <div>
+                        <button className={styles.buttons} type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+                        <button className={styles.buttons} type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
     )
 
     return ( <li className="list"> {isEditing ? editTemplate : defaultTemplate} </li> )
