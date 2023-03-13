@@ -3,7 +3,7 @@ import styles from "./Todo.module.css"
 
 const Todo = (props) => {
 
-    const {id, deleteTodo, desc, editTodo, toggle} = props;
+    const {id, deleteTodo, desc, editTodo, toggle, completed} = props;
 
     const [input, setInput] = useState("")
     const [isEditing, setIsEditing] = useState(false)
@@ -28,6 +28,7 @@ const Todo = (props) => {
                 <input 
                 type="checkbox"
                 id={id}
+                defaultChecked={completed}
                 onChange={() => toggle(id)}
                 value={input} />
                 {desc}
@@ -39,20 +40,20 @@ const Todo = (props) => {
     )
 
     const editTemplate = (
-        <div className={styles.container}>
-            <form onSubmit={handleSubmit}>
+        
+            <form className={styles.container} onSubmit={handleSubmit}>
                     <input 
+                    placeholder={desc}
                     type="text"
                     id={id}
                     onChange={handleChange}
                     value={input} />
-                    {desc}
                     <div>
                         <button className={styles.buttons} type="button" onClick={() => setIsEditing(false)}>Cancel</button>
                         <button className={styles.buttons} type="submit">Save</button>
                     </div>
                 </form>
-            </div>
+            
     )
 
     return ( <li className="list"> {isEditing ? editTemplate : defaultTemplate} </li> )

@@ -7,6 +7,7 @@ const TodoList = () => {
 
     const [input, setInput] = useState("")
     const [todos, setTodos] = useState([])
+    const [toggled, setToggled] = useState(false)
    
 
     const handleChange = (event) => {
@@ -30,7 +31,16 @@ const TodoList = () => {
     }
 
     const toggle = (id) => {
-        console.log("försöker toggla")
+        toggled ? setToggled(false) : setToggled(true)
+
+        const editedList = todos.map(item => {
+            if (id === item.id) {
+                updateTodosDB(id, {...item, completed: !item.completed})
+                return {...item, completed: !item.completed}
+            }
+            return item
+        })
+        setTodos(editedList)
     }
 
     const editTodo = (id, newDesc) => {
@@ -62,12 +72,12 @@ const TodoList = () => {
     }, [todos.length])
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Todo List</h1>
             <form onSubmit={handleSubmit}>
             <label htmlFor="">Add a todo: </label>
             <input type="text" onChange={handleChange} value={input} />
-            <button type="submit">Add todo</button>
+            <button className={styles.button} type="submit">Add todo</button>
             </form>
             <ul className={styles.list}>
                 {todos.map(item => {
