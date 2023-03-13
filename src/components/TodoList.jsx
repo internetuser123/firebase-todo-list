@@ -73,7 +73,7 @@ const TodoList = () => {
 
     return (
         <div className={styles.container}>
-            <h1>Todo List</h1>
+            <h1>Todolist with React and Firebase</h1>
             <form onSubmit={handleSubmit}>
             <label htmlFor="">Add a todo: </label>
             <input type="text" onChange={handleChange} value={input} />
