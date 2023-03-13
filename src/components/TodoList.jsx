@@ -24,9 +24,11 @@ const TodoList = () => {
         const newTodo = {
             desc: input, 
             completed: false,
+            date: new Date
         }
         addTodosDB(newTodo)
         setTodos([...todos, newTodo])
+        console.log(newTodo)
 
     }
 
@@ -68,8 +70,12 @@ const TodoList = () => {
         console.log("Use effect körs")
         fetchFromDB().then((newTodo) => {
             setTodos(newTodo)
+            console.log(todos)
         })
     }, [todos.length])
+
+    
+
 
     return (
         <div className={styles.container}>
@@ -80,10 +86,10 @@ const TodoList = () => {
             <button className={styles.button} type="submit">Add todo</button>
             </form>
             <ul className={styles.list}>
-                {todos.map(item => {
+                {todos.sort((a, b) => b.date - a.date).map(item => {
                     return <Todo
-                    key={item.id}
-                    id={item.id}
+                    key={item.id || new Date()}
+                    id={item.id || new Date()}
                     desc={item.desc}
                     completed={item.completed}
                     editTodo={editTodo}

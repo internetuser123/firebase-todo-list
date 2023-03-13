@@ -4,6 +4,8 @@ import styles from "./Todo.module.css"
 const Todo = (props) => {
 
     const {id, deleteTodo, desc, editTodo, toggle, completed} = props;
+    
+    
 
     const [input, setInput] = useState("")
     const [isEditing, setIsEditing] = useState(false)
